@@ -1,17 +1,32 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { ContentWrapper } from './components/ContentWrapper';
+import { PostsList } from './screens/PostsList';
+import { store } from './store';
+import './styles/index.css';
+import { myTheme } from './styles/theme';
+import { PostDetails } from './screens/PostDetails';
+import { AppBackground } from './components/AppBackground';
+import { CreatePost } from './screens/CreatePost';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () => {
+  return (
+    <ThemeProvider theme={myTheme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <AppBackground>
+            <ContentWrapper>
+              <Route exact path='/' component={PostsList} />
+              <Route exact path='/post/:id' component={PostDetails} />
+              <Route exact path='/create-post' component={CreatePost} />
+            </ContentWrapper>
+          </AppBackground>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
+  );
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(<App />, document.getElementById('root'));
