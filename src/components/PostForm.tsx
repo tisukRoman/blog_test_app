@@ -2,12 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { myTheme } from '../styles/theme';
 
-const CreatePostFormForm = styled.form`
+const PostFormForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const CreatePostFormTitle = styled.input`
+const PostFormTitle = styled.input`
   height: 3em;
   padding: 1em;
   margin-bottom: 1em;
@@ -15,7 +15,7 @@ const CreatePostFormTitle = styled.input`
   border-radius: 0.5em;
 `;
 
-const CreatePostFormBody = styled.textarea`
+const PostFormBody = styled.textarea`
   height: 30em;
   padding: 1em;
   margin-bottom: 1em;
@@ -23,7 +23,7 @@ const CreatePostFormBody = styled.textarea`
   border-radius: 0.5em;
 `;
 
-const CreatePostFormButton = styled.button`
+const PostFormButton = styled.button`
   display: block;
   height: 3em;
   padding: 1em;
@@ -33,26 +33,41 @@ const CreatePostFormButton = styled.button`
   border-radius: 0.5em;
   background-color: ${myTheme.colors.green};
   color: #fff;
+  cursor: pointer;
 `;
 
-export const CreatePostForm = () => {
-  const [title, setTitle] = useState<string>('');
-  const [body, setBody] = useState<string>('');
+interface PostFormProps {
+  buttonTitle: string;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  title: string;
+  body: string;
+  setTitle: (value: string) => void;
+  setBody: (value: string) => void;
+}
+
+export const PostForm: React.FC<PostFormProps> = ({
+  buttonTitle,
+  onSubmit,
+  title,
+  body,
+  setTitle,
+  setBody
+}) => {
   return (
-    <CreatePostFormForm>
-      <CreatePostFormTitle
+    <PostFormForm onSubmit={onSubmit}>
+      <PostFormTitle
         type='text'
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder='Enter the title of your post...'
         maxLength={60}
       />
-      <CreatePostFormBody
+      <PostFormBody
         value={body}
         onChange={(e) => setBody(e.target.value)}
         placeholder='Enter the text of your post...'
-      ></CreatePostFormBody>
-      <CreatePostFormButton type='submit'>Create Post</CreatePostFormButton>
-    </CreatePostFormForm>
+      ></PostFormBody>
+      <PostFormButton type='submit'>{buttonTitle}</PostFormButton>
+    </PostFormForm>
   );
 };

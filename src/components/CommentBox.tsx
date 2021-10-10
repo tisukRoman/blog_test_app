@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { myTheme } from '../styles/theme';
 
 const CommentBoxWrapper = styled.div`
-  margin-bottom: 1em;
-  width: 100%;
+  margin: 0 2em 1em 0;
+  max-width: 100%;
   padding: 1em;
   border: 1px solid ${myTheme.colors.dark};
   border-radius: 0.5em;

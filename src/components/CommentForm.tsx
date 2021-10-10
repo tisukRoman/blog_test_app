@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 const CommentFormWrapper = styled.div`
-  width: 50%;
+  min-width: 50%;
 `;
 
 const CommentFormForm = styled.form`
@@ -25,16 +24,22 @@ const CommentFormButton = styled.button`
 `;
 
 interface CommentFormProps {
-  autofocus?: boolean;
+  comment: string;
+  setComment: (value: string) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export const CommentForm: React.FC<CommentFormProps> = ({ autofocus }) => {
-  const [comment, setComment] = useState('');
-
+export const CommentForm: React.FC<CommentFormProps> = ({
+  comment,
+  setComment,
+  onSubmit,
+}) => {
   return (
     <CommentFormWrapper>
-      <CommentFormForm onSubmit={() => {}} id='comment-form'>
+      <CommentFormForm onSubmit={onSubmit} id='comment-form'>
         <CommentFormTextArea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
           form='comment-form'
           placeholder='Enter your comment...'
           cols={40}

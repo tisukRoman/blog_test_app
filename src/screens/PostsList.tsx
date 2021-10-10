@@ -6,6 +6,7 @@ import { Error } from '../components/Error';
 import { Loader } from '../components/Loader';
 import { PageTitle } from '../components/PageTitle';
 import { PostItem } from '../components/PostItem';
+import { DeletePostStateType } from '../reducers/deletePostReducer';
 import {
   AllPostsStateType,
   getAllPostsRequest,
@@ -21,17 +22,25 @@ export const PostsList = () => {
     AllPostsStateType
   >((state) => state.getAllPosts);
 
+  // Delete Post State
+  const { deletePostLoader, deletePostError, deletePostSuccess } = useSelector<
+    AppState,
+    DeletePostStateType
+  >((state) => state.deletePost);
+
   useEffect(() => {
     dispatch(getAllPostsRequest());
-  }, [dispatch]);
+  }, [dispatch, deletePostSuccess]);
+  
 
-  if (getPostsLoader) return <Loader />;
+  if (getPostsLoader || deletePostLoader) return <Loader />;
   if (getPostsError) return <Error errorText={getPostsError} />;
+  if (deletePostError) return <Error errorText={deletePostError} />;
   return (
     <>
       <PageTitle>Posts</PageTitle>
       <AddPostButton />
-      {posts.map((post) => (
+      {posts.reverse().map((post) => (
         <PostItem
           key={post.id}
           title={post.title}

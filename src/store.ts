@@ -3,11 +3,21 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './operations/rootSaga';
 import { getAllPostsReducer } from './reducers/getAllPostsReducer';
+import { getPostDetailsReducer } from './reducers/getPostDetailsReducer';
+import { createPostReducer } from './reducers/createPostReducer';
+import { updatePostReducer } from './reducers/updatePostReducer';
+import { deletePostReducer } from './reducers/deletePostReducer';
+import { createCommentReducer } from './reducers/createCommentReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   getAllPosts: getAllPostsReducer,
+  getPostDetails: getPostDetailsReducer,
+  createPost: createPostReducer,
+  updatePost: updatePostReducer,
+  deletePost: deletePostReducer,
+  createComment: createCommentReducer,
 });
 
 const initialState = {};

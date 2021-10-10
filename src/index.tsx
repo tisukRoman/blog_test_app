@@ -10,6 +10,7 @@ import { myTheme } from './styles/theme';
 import { PostDetails } from './screens/PostDetails';
 import { AppBackground } from './components/AppBackground';
 import { CreatePost } from './screens/CreatePost';
+import { EditPost } from './screens/EditPost';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
               <Route exact path='/' component={PostsList} />
               <Route exact path='/post/:id' component={PostDetails} />
               <Route exact path='/create-post' component={CreatePost} />
+              <Route exact path='/post/:id/edit' component={EditPost} />
             </ContentWrapper>
           </AppBackground>
         </BrowserRouter>
